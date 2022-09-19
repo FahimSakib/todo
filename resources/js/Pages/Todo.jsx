@@ -20,16 +20,16 @@ const Todo = () => {
       }
       return todo
     })
-    Inertia.put(`todo-check/${id}`, {
+    Inertia.put(`todo-check/${id}`, {}, {
       preserveScroll: true
-   })
+    })
     setTodos(updatedTodos)
   }
 
   const markAsEditing = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.isEditing = true
+        todo.is_editing = true
       }
       return todo
     })
@@ -40,11 +40,14 @@ const Todo = () => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
         if (event.target.value.trim().length === 0) {
-          todo.isEditing = false
+          todo.is_editing = false
           return todo
         }
+
         todo.title = event.target.value
-        todo.isEditing = false
+        const data = event.target.value
+        Inertia.put(`todo/${id}`, {title: data}, { preserveScroll: true })
+        todo.is_editing = false
       }
       return todo
     })
@@ -55,7 +58,7 @@ const Todo = () => {
   const CancleEdit = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.isEditing = false
+        todo.is_editing = false
       }
       return todo
     })

@@ -63,9 +63,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        dd('no');
+        Todo::find($id)->update(['title' => $request->title]);
     }
 
     /**

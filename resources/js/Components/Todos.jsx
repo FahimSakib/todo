@@ -19,7 +19,7 @@ const Todos = ({
                   checked={todo.is_complete ? true : false}
                   onChange={() => completeTodo(todo.id)}
                 />
-                {!todo.isEditing ? (
+                {!todo.is_editing ? (
                   <span
                     className={`todo-item-label ${todo.is_complete ? 'line-through' : ''}`}
                     onDoubleClick={() => markAsEditing(todo.id)}
