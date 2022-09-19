@@ -65,8 +65,7 @@ class TodoController extends Controller
      */
     public function update($id)
     {
-        $todo = Todo::where('id',$id)->pluck('is_complete')->first();
-        Todo::find($id)->update(['is_complete' => !$todo]);
+        dd('no');
     }
 
     /**
@@ -78,6 +77,12 @@ class TodoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function checkItem($id)
+    {
+        $todo = Todo::where('id',$id)->pluck('is_complete')->first();
+        Todo::find($id)->update(['is_complete' => !$todo]);
     }
 
     public function checkAll($type)

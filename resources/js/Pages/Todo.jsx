@@ -20,7 +20,7 @@ const Todo = () => {
       }
       return todo
     })
-    Inertia.put(`todo/${id}`, {
+    Inertia.put(`todo-check/${id}`, {
       preserveScroll: true
    })
     setTodos(updatedTodos)
