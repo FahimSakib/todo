@@ -17,10 +17,6 @@ const TodoList = ({
   unCheckAll,
   ...rest
 }) => {
-  // console.log(todosFiltered('complete'))
-  // console.log(rest);
-  // console.log(rest.test);
-  // console.log(remaining());
   const [filter, setFilter] = useState('all')
 
   return (

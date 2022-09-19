@@ -20,7 +20,9 @@ const Todo = () => {
       }
       return todo
     })
-    Inertia.put(`todo/${id}`)
+    Inertia.put(`todo/${id}`, {
+      preserveScroll: true
+   })
     setTodos(updatedTodos)
   }
 
@@ -64,12 +66,12 @@ const Todo = () => {
 
   const clearCompleted = () => setTodos(todos.filter((todo) => !todo.is_complete))
 
-  const checkAll = () => {
+  const checkAll = (type) => {
     const updatedTodos = todos.map((todo) => {
       todo.is_complete = true
       return todo
     })
-
+    Inertia.put(`todo-check-all/${'check'}`)
     setTodos(updatedTodos)
   }
 
@@ -88,6 +90,7 @@ const Todo = () => {
       todo.is_complete = false
       return todo
     })
+    Inertia.put(`todo-check-all/${'uncheck'}`)
     setTodos(updatedTodos)
   }
 

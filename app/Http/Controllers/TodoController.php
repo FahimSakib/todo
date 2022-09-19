@@ -79,4 +79,14 @@ class TodoController extends Controller
     {
         //
     }
+
+    public function checkAll($type)
+    {
+        if ($type == 'check') {
+            Todo::where('is_complete', 0)->update(['is_complete' => 1]);
+        }else{
+            Todo::where('is_complete', 1)->update(['is_complete' => 0]);
+        }
+        
+    }
 }

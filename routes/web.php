@@ -34,3 +34,4 @@ require __DIR__.'/auth.php';
 // Todo
 
 Route::resource('todo', TodoController::class)->except(['create','edit']);
+Route::put('todo-check-all/{type}', [TodoController::class, 'checkAll'])->name('todo.check.all');
