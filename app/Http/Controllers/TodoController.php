@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class TodoController extends Controller
 {
@@ -15,8 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
-        return Inertia::render('Todo',[$todos]);
+        return Inertia::render('Todo',['data' => Todo::all()]);
     }
 
     /**
@@ -27,10 +27,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->title);
         Todo::create($request->all());
-
-        return redirect()->route('todo.index');
+        $result = Todo::all();
+        return Inertia::render('Todo',[
+            'result'=>$result
+        ]);
     }
 
     /**
@@ -62,9 +63,10 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $todo = Todo::where('id',$id)->pluck('is_complete')->first();
+        Todo::find($id)->update(['is_complete' => !$todo]);
     }
 
     /**

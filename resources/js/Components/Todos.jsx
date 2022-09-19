@@ -16,12 +16,12 @@ const Todos = ({
               <div className="todo-item">
                 <input
                   type="checkbox"
-                  checked={todo.isComplete ? true : false}
+                  checked={todo.is_complete ? true : false}
                   onChange={() => completeTodo(todo.id)}
                 />
                 {!todo.isEditing ? (
                   <span
-                    className={`todo-item-label ${todo.isComplete ? 'line-through' : ''}`}
+                    className={`todo-item-label ${todo.is_complete ? 'line-through' : ''}`}
                     onDoubleClick={() => markAsEditing(todo.id)}
                   >
                     {todo.title}

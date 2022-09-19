@@ -2,36 +2,25 @@ import TodoList from '@/Components/TodoList'
 import Notodo from '@/Components/NoTodo'
 import TodoForm from '@/Components/TodoForm'
 import UseLocalStorage from '@/Hooks/UseLocalStorage'
+import { useState } from 'react'
+import { usePage } from '@inertiajs/inertia-react'
+import { Inertia } from '@inertiajs/inertia'
 
 const Todo = () => {
-  const [todos, setTodos] = UseLocalStorage('todos', [])
-
-  const [idForTodo, setIdForTodo] = UseLocalStorage('idForTodo', 1)
+  const { data } = usePage().props
+  const [todos, setTodos] = useState(data)
   const [name, setName] = UseLocalStorage('name', '')
-
-  const addTodo = (todo) => {
-    setTodos([
-      ...todos,
-      {
-        id: idForTodo,
-        title: todo,
-        isComplete: false,
-        isEditing: false,
-      },
-    ])
-
-    setIdForTodo((preIdForTodo) => preIdForTodo + 1)
-  }
 
   const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id))
 
   const completeTodo = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo.isComplete = !todo.isComplete
+        todo.is_complete = !todo.is_complete
       }
       return todo
     })
+    Inertia.put(`todo/${id}`)
     setTodos(updatedTodos)
   }
 
@@ -71,13 +60,13 @@ const Todo = () => {
     setTodos(updatedTodos)
   }
 
-  const remaining = () => todos.filter((todo) => !todo.isComplete).length
+  const remaining = () => todos.filter((todo) => !todo.is_complete).length
 
-  const clearCompleted = () => setTodos(todos.filter((todo) => !todo.isComplete))
+  const clearCompleted = () => setTodos(todos.filter((todo) => !todo.is_complete))
 
   const checkAll = () => {
     const updatedTodos = todos.map((todo) => {
-      todo.isComplete = true
+      todo.is_complete = true
       return todo
     })
 
@@ -88,18 +77,17 @@ const Todo = () => {
     if (filter === 'all') {
       return todos
     } else if (filter === 'active') {
-      return todos.filter((todo) => !todo.isComplete)
+      return todos.filter((todo) => !todo.is_complete)
     } else if (filter === 'complete') {
-      return todos.filter((todo) => todo.isComplete)
+      return todos.filter((todo) => todo.is_complete)
     }
   }
 
   const unCheckAll = () => {
     const updatedTodos = todos.map((todo) => {
-      todo.isComplete = false
+      todo.is_complete = false
       return todo
     })
-
     setTodos(updatedTodos)
   }
 
@@ -120,7 +108,7 @@ const Todo = () => {
           {name && <p className="name-label">Hello, {name}</p>}
         </div>
         <h2>Todo App</h2>
-        <TodoForm addTodo={addTodo} />
+        <TodoForm setTodos={setTodos} />
 
         {todos.length > 0 ? (
           <TodoList
