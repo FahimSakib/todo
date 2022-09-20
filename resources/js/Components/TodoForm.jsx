@@ -1,8 +1,9 @@
 import { Inertia } from '@inertiajs/inertia'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const TodoForm = ({ setTodos }) => {
-  const [todoInput, setTodoInput] = useState('')
+  const [todoInput, setTodoInput] = useState({})
 
   const handleInput = (event) => {
     const name = event.target.name
@@ -11,15 +12,19 @@ const TodoForm = ({ setTodos }) => {
   }
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    if (todoInput.title.trim().length === 0) {
-      return
+    if (Object.keys(todoInput).length === 0) {
+      return toast.error('Please type something to save!')
     }
-    Inertia.post('todo', todoInput, {
-      onSuccess: (data) => {
-        setTodos(data.props.result)
-      },
-    })
+    if (todoInput.title.trim().length !== 0) {
+      Inertia.post('todo', todoInput, {
+        onSuccess: (data) => {
+          setTodos(data.props.result)
+          toast.success('Todo added successfully')
+        },
+      })
+    } else {
+      toast.error('Please type something to save!')
+    }
     setTodoInput('')
   }
 
