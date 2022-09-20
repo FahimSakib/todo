@@ -75,7 +75,12 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = Todo::destroy($id);
+        if ($result) {
+            return back();
+        }else{
+            return back()->withErrors(['error' => 'Item could not be deleted']);
+        }
     }
 
     public function checkItem($id)
@@ -86,7 +91,7 @@ class TodoController extends Controller
 
     public function checkAll($type)
     {
-        if ($type == 'check') {
+        if ($type === 'check') {
             Todo::where('is_complete', 0)->update(['is_complete' => 1]);
         }else{
             Todo::where('is_complete', 1)->update(['is_complete' => 0]);

@@ -5,13 +5,25 @@ import UseLocalStorage from '@/Hooks/UseLocalStorage'
 import { useState } from 'react'
 import { usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
+import toast from 'react-hot-toast'
 
 const Todo = () => {
   const { data } = usePage().props
   const [todos, setTodos] = useState(data)
   const [name, setName] = UseLocalStorage('name', '')
 
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id))
+  const deleteTodo = (id) => {
+    Inertia.delete(`todo/${id}`, {
+      preserveScroll: true,
+      onSuccess: () => {
+        setTodos(todos.filter((todo) => todo.id !== id))
+        toast.success('Todo delete successfully')
+      },
+      onError: (data) => {
+        toast.error(data.error)
+      },
+    })
+  }
 
   const completeTodo = (id) => {
     const updatedTodos = todos.map((todo) => {
