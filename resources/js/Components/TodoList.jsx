@@ -13,10 +13,19 @@ const TodoList = ({
   remaining,
   clearCompleted,
   checkAll,
-  todosFiltered,
   unCheckAll,
 }) => {
   const [filter, setFilter] = useState('all')
+
+  const todosFiltered = (filter) => {
+    if (filter === 'all') {
+      return todos
+    } else if (filter === 'active') {
+      return todos.filter((todo) => !todo.is_complete)
+    } else if (filter === 'complete') {
+      return todos.filter((todo) => todo.is_complete)
+    }
+  }
 
   return (
     <>

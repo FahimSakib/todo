@@ -6,11 +6,13 @@ import { useState } from 'react'
 import { usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import toast from 'react-hot-toast'
+import ConfirmModal from '@/Components/ConfirmModal'
 
 const Todo = () => {
   const { data } = usePage().props
   const [todos, setTodos] = useState(data)
   const [name, setName] = UseLocalStorage('name', '')
+  const [showModal, setShowModal] = useState(false)
 
   const deleteTodo = (id) => {
     Inertia.delete(`todo/${id}`, {
@@ -64,6 +66,7 @@ const Todo = () => {
         const data = event.target.value
         Inertia.put(`todo/${id}`, { title: data }, { preserveScroll: true })
         todo.is_editing = false
+        toast.success('Item updated successfully')
       }
       return todo
     })
@@ -90,18 +93,8 @@ const Todo = () => {
       todo.is_complete = true
       return todo
     })
-    Inertia.put(`todo-check-all/${'check'}`)
+    Inertia.put(`todo-check-all/${'check'}`, {}, { preserveScroll: true })
     setTodos(updatedTodos)
-  }
-
-  const todosFiltered = (filter) => {
-    if (filter === 'all') {
-      return todos
-    } else if (filter === 'active') {
-      return todos.filter((todo) => !todo.is_complete)
-    } else if (filter === 'complete') {
-      return todos.filter((todo) => todo.is_complete)
-    }
   }
 
   const unCheckAll = () => {
@@ -109,7 +102,7 @@ const Todo = () => {
       todo.is_complete = false
       return todo
     })
-    Inertia.put(`todo-check-all/${'uncheck'}`)
+    Inertia.put(`todo-check-all/${'uncheck'}`, {}, { preserveScroll: true })
     setTodos(updatedTodos)
   }
 
@@ -143,13 +136,14 @@ const Todo = () => {
             remaining={remaining}
             clearCompleted={clearCompleted}
             checkAll={checkAll}
-            todosFiltered={todosFiltered}
             unCheckAll={unCheckAll}
           />
         ) : (
           <Notodo />
         )}
       </div>
+      {showModal && <ConfirmModal setShowModal={setShowModal}/>}
+      <button onClick={() => {setShowModal(true)}}>Show Modal</button>
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import Close from "./Icons/Close"
+
 const Todos = ({
   todosFiltered,
   filter,
@@ -44,19 +46,7 @@ const Todos = ({
                 )}
               </div>
               <button onClick={() => deleteTodo(todo.id)} className="x-button">
-                <svg
-                  className="x-button-icon"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+               <Close />
               </button>
             </li>
           ))

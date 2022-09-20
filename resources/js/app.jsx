@@ -16,7 +16,7 @@ createInertiaApp({
     return render(
       <>
         <Toaster
-          position="buttom-right"
+          position="bottom-right"
           reverseOrder={false}
           gutter={8}
           containerClassName=""
