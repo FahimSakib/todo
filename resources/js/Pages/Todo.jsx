@@ -144,6 +144,12 @@ const Todo = () => {
       </div>
       {showModal && <ConfirmModal setShowModal={setShowModal}/>}
       <button onClick={() => {setShowModal(true)}}>Show Modal</button>
+      {/* onBlur={() => {
+          setShowModal(false)
+        }}
+        onKeyUp={() => {
+          setShowModal(false)
+        }} */}
     </div>
   )
 }
