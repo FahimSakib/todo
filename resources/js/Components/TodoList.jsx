@@ -15,7 +15,6 @@ const TodoList = ({
   checkAll,
   todosFiltered,
   unCheckAll,
-  ...rest
 }) => {
   const [filter, setFilter] = useState('all')
 

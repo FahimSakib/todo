@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class TodoController extends Controller
 {

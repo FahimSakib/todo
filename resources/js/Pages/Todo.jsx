@@ -20,9 +20,13 @@ const Todo = () => {
       }
       return todo
     })
-    Inertia.put(`todo-check/${id}`, {}, {
-      preserveScroll: true
-    })
+    Inertia.put(
+      `todo-check/${id}`,
+      {},
+      {
+        preserveScroll: true,
+      }
+    )
     setTodos(updatedTodos)
   }
 
@@ -46,7 +50,7 @@ const Todo = () => {
 
         todo.title = event.target.value
         const data = event.target.value
-        Inertia.put(`todo/${id}`, {title: data}, { preserveScroll: true })
+        Inertia.put(`todo/${id}`, { title: data }, { preserveScroll: true })
         todo.is_editing = false
       }
       return todo
@@ -129,8 +133,6 @@ const Todo = () => {
             checkAll={checkAll}
             todosFiltered={todosFiltered}
             unCheckAll={unCheckAll}
-            test="ggg"
-            a="gg"
           />
         ) : (
           <Notodo />
