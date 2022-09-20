@@ -12,8 +12,8 @@ const ConfirmModal = ({ setShowModal }) => {
         </div>
         <div className="modal-body"></div>
         <div className="modal-footer">
-          <button className="cancel button">Cancel</button>
           <button className="confirm button">Confirm</button>
+          <button onClick={() => setShowModal(false)} className="cancel button">Cancel</button>
         </div>
       </div>
     </>
