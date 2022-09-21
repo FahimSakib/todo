@@ -28,21 +28,41 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
           </div>
         </div>
         <div className="modal-footer">
-          <button
-            onClick={() => {
-              trashItem(id)
-              setShowModal(false)
-              toast((t) => (
-                <span>
-                  Item moved to trash. &nbsp;
-                  <button className='button' onClick={() => {toast.dismiss(t.id); trashItem(id)}}>Undo</button>
-                </span>
-              ))
-            }}
-            className="confirm button"
-          >
-            Confirm
-          </button>
+          {type === 'trash' ? (
+            <button
+              onClick={() => {
+                trashItem(id)
+                setShowModal(false)
+                toast((t) => (
+                  <span>
+                    Item moved to trash. &nbsp;
+                    <button
+                      className="button"
+                      onClick={() => {
+                        toast.dismiss(t.id)
+                        trashItem(id)
+                      }}
+                    >
+                      Undo
+                    </button>
+                  </span>
+                ))
+              }}
+              className="confirm button"
+            >
+              Confirm
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                deleteTodo(id)
+                setShowModal(false)
+              }}
+              className="confirm button"
+            >
+              Confirm
+            </button>
+          )}
           <button onClick={() => setShowModal(false)} className="cancel button">
             Cancel
           </button>

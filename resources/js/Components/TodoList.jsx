@@ -48,11 +48,12 @@ const TodoList = ({
           setShowModal={setShowModal}
           setId={setId}
           setType={setType}
+          trashItem={trashItem}
         />
       ) : (
         <Notodo filter={filter} />
       )}
-      {todosFiltered(filter).length !== 0 && (
+      {todosFiltered(filter).length !== 0 && filter!== 'trash' && (
         <div className="check-all-container">
           <div>
             {remaining() !== 0 && filter !== 'complete' ? (

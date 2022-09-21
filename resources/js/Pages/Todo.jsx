@@ -17,7 +17,7 @@ const Todo = () => {
       preserveScroll: true,
       onSuccess: () => {
         setTodos(todos.filter((todo) => todo.id !== id))
-        toast.success('Todo delete successfully')
+        toast.success('Todo Successfully deleted')
       },
       onError: (data) => {
         toast.error(data.error)

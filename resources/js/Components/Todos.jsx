@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast'
+import Back from './Icons/Back'
 import Close from './Icons/Close'
 
 const Todos = ({
@@ -11,11 +12,17 @@ const Todos = ({
   setShowModal,
   setId,
   setType,
+  trashItem,
 }) => {
-  const handleModal = (id) => {
+  const handleModal = (id, type) => {
     setShowModal(true)
     setId(id)
-    setType('trash')
+    setType(type)
+  }
+
+  const restore = (id) => {
+    trashItem(id)
+    toast.success('Item restored successfully')
   }
 
   return (
@@ -25,18 +32,24 @@ const Todos = ({
           .map((todo) => (
             <li key={todo.id} className="todo-item-container">
               <div className="todo-item">
-                <input
-                  type="checkbox"
-                  checked={todo.is_complete ? true : false}
-                  onChange={() => completeTodo(todo.id)}
-                />
+                {filter !== 'trash' && (
+                  <input
+                    type="checkbox"
+                    checked={todo.is_complete ? true : false}
+                    onChange={() => completeTodo(todo.id)}
+                  />
+                )}
                 {!todo.is_editing ? (
-                  <span
-                    className={`todo-item-label ${todo.is_complete ? 'line-through' : ''}`}
-                    onDoubleClick={() => markAsEditing(todo.id)}
-                  >
-                    {todo.title}
-                  </span>
+                  filter !== 'trash' ? (
+                    <span
+                      className={`todo-item-label ${todo.is_complete ? 'line-through' : ''}`}
+                      onDoubleClick={() => markAsEditing(todo.id)}
+                    >
+                      {todo.title}
+                    </span>
+                  ) : (
+                    <span className={'todo-item-label'}>{todo.title}</span>
+                  )
                 ) : (
                   <input
                     type="text"
@@ -54,14 +67,35 @@ const Todos = ({
                   />
                 )}
               </div>
-              <button
-                onClick={() => {
-                  handleModal(todo.id)
-                }}
-                className="x-button"
-              >
-                <Close />
-              </button>
+              {filter === 'trash' ? (
+                <div>
+                  <button
+                    onClick={() => {
+                      restore(todo.id)
+                    }}
+                    className="x-button"
+                  >
+                    <Back />
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleModal(todo.id, 'delete')
+                    }}
+                    className="x-button"
+                  >
+                    <Close />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleModal(todo.id, 'trash')
+                  }}
+                  className="x-button"
+                >
+                  <Close />
+                </button>
+              )}
             </li>
           ))
           .reverse()}
