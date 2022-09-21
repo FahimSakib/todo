@@ -2,6 +2,7 @@ import { useState } from 'react'
 import FilterButton from './FilterButton'
 import Notodo from './NoTodo'
 import Todos from './Todos'
+import ConfirmModal from '@/Components/ConfirmModal'
 
 const TodoList = ({
   todos,
@@ -16,6 +17,8 @@ const TodoList = ({
   unCheckAll,
 }) => {
   const [filter, setFilter] = useState('all')
+  const [showModal, setShowModal] = useState(false)
+  const [id, setId] = useState('')
 
   const todosFiltered = (filter) => {
     if (filter === 'all') {
@@ -37,7 +40,8 @@ const TodoList = ({
           markAsEditing={markAsEditing}
           CancleEdit={CancleEdit}
           updateTodo={updateTodo}
-          deleteTodo={deleteTodo}
+          setShowModal={setShowModal}
+          setId={setId}
         />
       ) : (
         <Notodo filter={filter} />
@@ -68,6 +72,7 @@ const TodoList = ({
           </div>
         )}
       </div>
+      {showModal && <ConfirmModal setShowModal={setShowModal} id={id} deleteTodo={deleteTodo} />}
     </>
   )
 }

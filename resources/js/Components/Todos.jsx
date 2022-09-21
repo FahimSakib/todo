@@ -1,4 +1,4 @@
-import Close from "./Icons/Close"
+import Close from './Icons/Close'
 
 const Todos = ({
   todosFiltered,
@@ -7,7 +7,8 @@ const Todos = ({
   markAsEditing,
   CancleEdit,
   updateTodo,
-  deleteTodo,
+  setShowModal,
+  setId
 }) => {
   return (
     <>
@@ -45,8 +46,9 @@ const Todos = ({
                   />
                 )}
               </div>
-              <button onClick={() => deleteTodo(todo.id)} className="x-button">
-               <Close />
+              {/* <button onClick={() => deleteTodo(todo.id)} className="x-button"> */}
+              <button onClick={() => {setShowModal(true); setId(todo.id)}} className="x-button">
+                <Close />
               </button>
             </li>
           ))

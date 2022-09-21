@@ -152,7 +152,7 @@ h2 {
 }
 
 .modal{
-  height: 20vh;
+  height: 10vh;
   min-height: 150px;
   width: 300px;
   max-width: 100%;
@@ -189,6 +189,15 @@ h2 {
   cursor: pointer;
   margin: 5px;
 }
+
+.modal .modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  max-width: 100%;
+}
+
 .modal-footer .confirm{
   color: white;
   font-size: 14px;

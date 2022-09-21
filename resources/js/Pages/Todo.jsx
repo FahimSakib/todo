@@ -6,13 +6,11 @@ import { useState } from 'react'
 import { usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import toast from 'react-hot-toast'
-import ConfirmModal from '@/Components/ConfirmModal'
 
 const Todo = () => {
   const { data } = usePage().props
   const [todos, setTodos] = useState(data)
   const [name, setName] = UseLocalStorage('name', '')
-  const [showModal, setShowModal] = useState(false)
 
   const deleteTodo = (id) => {
     Inertia.delete(`todo/${id}`, {
@@ -142,14 +140,6 @@ const Todo = () => {
           <Notodo />
         )}
       </div>
-      {showModal && <ConfirmModal setShowModal={setShowModal}/>}
-      <button onClick={() => {setShowModal(true)}}>Show Modal</button>
-      {/* onBlur={() => {
-          setShowModal(false)
-        }}
-        onKeyUp={() => {
-          setShowModal(false)
-        }} */}
     </div>
   )
 }
