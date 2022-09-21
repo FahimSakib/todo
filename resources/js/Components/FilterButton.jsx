@@ -28,6 +28,15 @@ const FilterButton = ({ setFilter, filter, todosFiltered }) => {
       >
         Completed
       </button>
+      <button
+        onClick={() => {
+          setFilter('trash')
+          todosFiltered(filter)
+        }}
+        className={`button filter-button ${filter === 'trash' ? 'filter-button-active' : ''}`}
+      >
+        Trashed
+      </button>
     </div>
   )
 }

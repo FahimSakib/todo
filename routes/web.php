@@ -36,3 +36,4 @@ require __DIR__.'/auth.php';
 Route::resource('todo', TodoController::class)->except(['create','edit']);
 Route::put('todo-check/{id}', [TodoController::class, 'checkItem'])->name('todo.check');
 Route::put('todo-check-all/{type}', [TodoController::class, 'checkAll'])->name('todo.check.all');
+route::put('todo-trash/{id}', [TodoController::class, 'trashItems'])->name('todo.trash');

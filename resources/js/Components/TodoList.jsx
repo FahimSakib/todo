@@ -15,18 +15,22 @@ const TodoList = ({
   clearCompleted,
   checkAll,
   unCheckAll,
+  trashItem,
 }) => {
   const [filter, setFilter] = useState('all')
   const [showModal, setShowModal] = useState(false)
   const [id, setId] = useState('')
+  const [type, setType] = useState('')
 
   const todosFiltered = (filter) => {
     if (filter === 'all') {
-      return todos
+      return todos.filter((todo) => !todo.is_trashed)
     } else if (filter === 'active') {
-      return todos.filter((todo) => !todo.is_complete)
+      return todos.filter((todo) => !todo.is_complete && !todo.is_trashed)
     } else if (filter === 'complete') {
-      return todos.filter((todo) => todo.is_complete)
+      return todos.filter((todo) => todo.is_complete && !todo.is_trashed)
+    } else if (filter === 'trash') {
+      return todos.filter((todo) => todo.is_trashed)
     }
   }
 
@@ -40,8 +44,10 @@ const TodoList = ({
           markAsEditing={markAsEditing}
           CancleEdit={CancleEdit}
           updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
           setShowModal={setShowModal}
           setId={setId}
+          setType={setType}
         />
       ) : (
         <Notodo filter={filter} />
@@ -72,7 +78,16 @@ const TodoList = ({
           </div>
         )}
       </div>
-      {showModal && <ConfirmModal setShowModal={setShowModal} id={id} deleteTodo={deleteTodo} />}
+      {showModal && (
+        <ConfirmModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          id={id}
+          deleteTodo={deleteTodo}
+          type={type}
+          trashItem={trashItem}
+        />
+      )}
     </>
   )
 }

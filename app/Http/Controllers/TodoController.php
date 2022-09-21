@@ -98,4 +98,10 @@ class TodoController extends Controller
         }
         
     }
+
+    public function trashItems($id)
+    {
+        $todo = Todo::where('id',$id)->pluck('is_trashed')->first();
+        Todo::find($id)->update(['is_trashed' => !$todo]);
+    }
 }

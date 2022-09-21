@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast'
 import Close from './Icons/Close'
 
 const Todos = ({
@@ -8,8 +9,15 @@ const Todos = ({
   CancleEdit,
   updateTodo,
   setShowModal,
-  setId
+  setId,
+  setType,
 }) => {
+  const handleModal = (id) => {
+    setShowModal(true)
+    setId(id)
+    setType('trash')
+  }
+
   return (
     <>
       <ul className="todo-list">
@@ -46,8 +54,12 @@ const Todos = ({
                   />
                 )}
               </div>
-              {/* <button onClick={() => deleteTodo(todo.id)} className="x-button"> */}
-              <button onClick={() => {setShowModal(true); setId(todo.id)}} className="x-button">
+              <button
+                onClick={() => {
+                  handleModal(todo.id)
+                }}
+                className="x-button"
+              >
                 <Close />
               </button>
             </li>

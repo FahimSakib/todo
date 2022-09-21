@@ -14,5 +14,5 @@ class Todo extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'is_complete', 'is_editing', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'is_complete', 'is_editing', 'is_trashed','created_at', 'updated_at'];
 }

@@ -1,9 +1,17 @@
 import React from 'react'
+import toast from 'react-hot-toast'
 import Close from './Icons/Close'
 
-const ConfirmModal = ({ setShowModal, id, deleteTodo }) => {
+const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem }) => {
   return (
     <>
+      <div
+        className="overlay"
+        onClick={() => {
+          setShowModal(false)
+        }}
+        style={{ display: `${showModal ? 'block' : ''}` }}
+      ></div>
       <div className="modal">
         <div className="modal-header">
           <button onClick={() => setShowModal(false)} className="x-button">
@@ -12,11 +20,29 @@ const ConfirmModal = ({ setShowModal, id, deleteTodo }) => {
         </div>
         <div className="modal-body">
           <div>
-            <p>are you sure you want to delete?</p>
+            {type === 'trash' ? (
+              <p>Move this item to Trash? </p>
+            ) : (
+              <p>are you sure you want to delete?</p>
+            )}
           </div>
         </div>
         <div className="modal-footer">
-          <button onClick={() => {deleteTodo(id); setShowModal(false)}} className="confirm button">Confirm</button>
+          <button
+            onClick={() => {
+              trashItem(id)
+              setShowModal(false)
+              toast((t) => (
+                <span>
+                  Item moved to trash. &nbsp;
+                  <button className='button' onClick={() => {toast.dismiss(t.id); trashItem(id)}}>Undo</button>
+                </span>
+              ))
+            }}
+            className="confirm button"
+          >
+            Confirm
+          </button>
           <button onClick={() => setShowModal(false)} className="cancel button">
             Cancel
           </button>

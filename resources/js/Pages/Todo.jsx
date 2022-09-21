@@ -104,6 +104,23 @@ const Todo = () => {
     setTodos(updatedTodos)
   }
 
+  const trashItem = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.is_trashed = !todo.is_trashed
+      }
+      return todo
+    })
+    Inertia.put(
+      `todo-trash/${id}`,
+      {},
+      {
+        preserveScroll: true,
+      }
+    )
+    setTodos(updatedTodos)
+  }
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
@@ -135,6 +152,7 @@ const Todo = () => {
             clearCompleted={clearCompleted}
             checkAll={checkAll}
             unCheckAll={unCheckAll}
+            trashItem={trashItem}
           />
         ) : (
           <Notodo />
