@@ -87,10 +87,14 @@ class TodoController extends Controller
         }
     }
 
-    public function checkItem($id)
+    public function checkItem($id, $type)
     {
-        $todo = Todo::where('id', $id)->pluck('is_complete')->first();
-        Todo::find($id)->update(['is_complete' => !$todo]);
+        if ($type === 'default') {
+            $todo = Todo::where('id', $id)->pluck('is_complete')->first();
+            Todo::find($id)->update(['is_complete' => !$todo]);
+        } elseif ($type === 'restore') {
+            Todo::find($id)->update(['is_complete' => false]);
+        }
     }
 
     public function checkAll($type)

@@ -25,21 +25,38 @@ const Todo = () => {
     })
   }
 
-  const completeTodo = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.is_complete = !todo.is_complete
-      }
-      return todo
-    })
-    Inertia.put(
-      `todo-check/${id}`,
-      {},
-      {
-        preserveScroll: true,
-      }
-    )
-    setTodos(updatedTodos)
+  const completeTodo = (id, type = null) => {
+    if (type === null) {
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          todo.is_complete = !todo.is_complete
+        }
+        return todo
+      })
+      Inertia.put(
+        `todo-check/${id}/${'default'}`,
+        {},
+        {
+          preserveScroll: true,
+        }
+      )
+      setTodos(updatedTodos)
+    } else if (type === 'restore') {
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          todo.is_complete = false
+        }
+        return todo
+      })
+      Inertia.put(
+        `todo-check/${id}/${'restore'}`,
+        {},
+        {
+          preserveScroll: true,
+        }
+      )
+      setTodos(updatedTodos)
+    }
   }
 
   const markAsEditing = (id) => {

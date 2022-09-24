@@ -20,9 +20,10 @@ const Todos = ({
     setType(type)
   }
 
-  const restore = (id) => {
+  const restore = (id,type) => {
     trashItems(id)
     toast.success('Item restored successfully')
+    completeTodo(id,type)
   }
 
   return (
@@ -71,7 +72,7 @@ const Todos = ({
                 <div>
                   <button
                     onClick={() => {
-                      restore(todo.id)
+                      restore(todo.id, 'restore')
                     }}
                     className="x-button"
                   >
