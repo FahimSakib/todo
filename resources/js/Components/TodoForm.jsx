@@ -21,6 +21,7 @@ const TodoForm = ({ setTodos }) => {
           setTodos(data.props.result)
           toast.success('Todo added successfully')
         },
+        preserveScroll: true,
       })
     } else {
       toast.error('Please type something to save!')

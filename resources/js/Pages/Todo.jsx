@@ -84,7 +84,9 @@ const Todo = () => {
 
   const remaining = () => todos.filter((todo) => !todo.is_complete).length
 
-  const clearCompleted = () => setTodos(todos.filter((todo) => !todo.is_complete))
+  const clearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.is_complete))
+  }
 
   const checkAll = (type) => {
     const updatedTodos = todos.map((todo) => {
@@ -100,25 +102,43 @@ const Todo = () => {
       todo.is_complete = false
       return todo
     })
+    console.log(updatedTodos)
     Inertia.put(`todo-check-all/${'uncheck'}`, {}, { preserveScroll: true })
     setTodos(updatedTodos)
   }
 
-  const trashItem = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        todo.is_trashed = !todo.is_trashed
-      }
-      return todo
-    })
-    Inertia.put(
-      `todo-trash/${id}`,
-      {},
-      {
-        preserveScroll: true,
-      }
-    )
-    setTodos(updatedTodos)
+  const trashItems = (id) => {
+    if (id === 'all') {
+      Inertia.put(
+        `todo-trash/${id}`,
+        {},
+        {
+          preserveScroll: true,
+        }
+      )
+      const updatedTodos = todos.map((todo) => {
+        if (todo.is_complete && !todo.is_trashed) {
+          todo.is_trashed = true
+        }
+        return todo
+      })
+      setTodos(updatedTodos)
+    } else {
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          todo.is_trashed = !todo.is_trashed
+        }
+        return todo
+      })
+      Inertia.put(
+        `todo-trash/${id}`,
+        {},
+        {
+          preserveScroll: true,
+        }
+      )
+      setTodos(updatedTodos)
+    }
   }
 
   return (
@@ -152,7 +172,7 @@ const Todo = () => {
             clearCompleted={clearCompleted}
             checkAll={checkAll}
             unCheckAll={unCheckAll}
-            trashItem={trashItem}
+            trashItems={trashItems}
           />
         ) : (
           <Notodo />

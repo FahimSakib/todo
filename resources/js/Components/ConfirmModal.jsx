@@ -2,7 +2,17 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import Close from './Icons/Close'
 
-const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem }) => {
+const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItems }) => {
+  const message = () => {
+    if (id === 'all') {
+      return <p>Move completed items to Trash? </p>
+    } else if (type === 'trash') {
+      return <p>Move this item to Trash? </p>      
+    } else {
+      return <p>are you sure you want to delete?</p>
+    }
+  }
+
   return (
     <>
       <div
@@ -19,19 +29,13 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
           </button>
         </div>
         <div className="modal-body">
-          <div>
-            {type === 'trash' ? (
-              <p>Move this item to Trash? </p>
-            ) : (
-              <p>are you sure you want to delete?</p>
-            )}
-          </div>
+          <div>{message()}</div>
         </div>
         <div className="modal-footer">
           {type === 'trash' ? (
             <button
               onClick={() => {
-                trashItem(id)
+                trashItems(id)
                 setShowModal(false)
                 toast((t) => (
                   <span>
@@ -40,7 +44,7 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
                       className="button"
                       onClick={() => {
                         toast.dismiss(t.id)
-                        trashItem(id)
+                        trashItems(id)
                       }}
                     >
                       Undo

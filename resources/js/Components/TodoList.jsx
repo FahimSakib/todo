@@ -15,12 +15,18 @@ const TodoList = ({
   clearCompleted,
   checkAll,
   unCheckAll,
-  trashItem,
+  trashItems,
 }) => {
   const [filter, setFilter] = useState('all')
   const [showModal, setShowModal] = useState(false)
   const [id, setId] = useState('')
   const [type, setType] = useState('')
+
+  const handleModal = (id, type) => {
+    setShowModal(true)
+    setId(id)
+    setType(type)
+  }
 
   const todosFiltered = (filter) => {
     if (filter === 'all') {
@@ -48,7 +54,7 @@ const TodoList = ({
           setShowModal={setShowModal}
           setId={setId}
           setType={setType}
-          trashItem={trashItem}
+          trashItems={trashItems}
         />
       ) : (
         <Notodo filter={filter} />
@@ -73,7 +79,7 @@ const TodoList = ({
         <FilterButton setFilter={setFilter} todosFiltered={todosFiltered} filter={filter} />
         {todosFiltered(filter).length !== 0 && (
           <div>
-            <button onClick={clearCompleted} className="button">
+            <button onClick={() => handleModal('all','trash')} className="button">
               Clear completed
             </button>
           </div>
@@ -86,7 +92,7 @@ const TodoList = ({
           id={id}
           deleteTodo={deleteTodo}
           type={type}
-          trashItem={trashItem}
+          trashItems={trashItems}
         />
       )}
     </>

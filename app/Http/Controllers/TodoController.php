@@ -15,7 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Todo',['data' => Todo::all()]);
+        return Inertia::render('Todo', ['data' => Todo::all()]);
     }
 
     /**
@@ -28,8 +28,8 @@ class TodoController extends Controller
     {
         Todo::create($request->all());
         $result = Todo::all();
-        return Inertia::render('Todo',[
-            'result'=>$result
+        return Inertia::render('Todo', [
+            'result' => $result
         ]);
     }
 
@@ -75,17 +75,21 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        $result = Todo::destroy($id);
-        if ($result) {
-            return back();
-        }else{
-            return back()->withErrors(['error' => 'Item could not be deleted']);
+        if ($id == 'all') {
+            Todo::where('is_complete', 1)->delete();
+        } else {
+            $result = Todo::destroy($id);
+            if ($result) {
+                return back();
+            } else {
+                return back()->withErrors(['error' => 'Item could not be deleted']);
+            }
         }
     }
 
     public function checkItem($id)
     {
-        $todo = Todo::where('id',$id)->pluck('is_complete')->first();
+        $todo = Todo::where('id', $id)->pluck('is_complete')->first();
         Todo::find($id)->update(['is_complete' => !$todo]);
     }
 
@@ -93,15 +97,18 @@ class TodoController extends Controller
     {
         if ($type === 'check') {
             Todo::where('is_complete', 0)->update(['is_complete' => 1]);
-        }else{
+        } else {
             Todo::where('is_complete', 1)->update(['is_complete' => 0]);
         }
-        
     }
 
     public function trashItems($id)
     {
-        $todo = Todo::where('id',$id)->pluck('is_trashed')->first();
-        Todo::find($id)->update(['is_trashed' => !$todo]);
+        if ($id == 'all') {
+            Todo::where('is_complete', 1)->update(['is_trashed' => 1]);
+        } else {
+            $todo = Todo::where('id', $id)->pluck('is_trashed')->first();
+            Todo::find($id)->update(['is_trashed' => !$todo]);
+        }
     }
 }
