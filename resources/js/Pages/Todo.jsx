@@ -128,18 +128,18 @@ const Todo = () => {
     setTodos(updatedTodos)
   }
 
-  const trashItems = (id) => {
+  const trashItems = (id, type=null) => {
     if (id === 'all') {
       Inertia.put(
-        `todo-trash/${id}`,
+        `todo-trash/${id}/${type}`,
         {},
         {
           preserveScroll: true,
         }
       )
       const updatedTodos = todos.map((todo) => {
-        if (todo.is_complete && !todo.is_trashed) {
-          todo.is_trashed = true
+        if (todo.is_complete) {
+          todo.is_trashed = !todo.is_trashed
         }
         return todo
       })
@@ -152,7 +152,7 @@ const Todo = () => {
         return todo
       })
       Inertia.put(
-        `todo-trash/${id}`,
+        `todo-trash/${id}/${type}`,
         {},
         {
           preserveScroll: true,

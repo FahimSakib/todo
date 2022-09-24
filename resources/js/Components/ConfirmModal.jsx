@@ -4,12 +4,12 @@ import Close from './Icons/Close'
 
 const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItems }) => {
   const message = () => {
-    if (id === 'all' && type=== 'trash') {
+    if (id === 'all' && type === 'trash') {
       return <p>Move completed items to Trash? </p>
-    } else if(id === 'all' && type=== 'delete'){
-      return <p>Are you sure you want to empty trash?</p>      
+    } else if (id === 'all' && type === 'delete') {
+      return <p>Are you sure you want to empty trash?</p>
     } else if (type === 'trash') {
-      return <p>Move this item to Trash? </p>      
+      return <p>Move this item to Trash? </p>
     } else {
       return <p>are you sure you want to delete?</p>
     }
@@ -46,7 +46,7 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
                       className="button"
                       onClick={() => {
                         toast.dismiss(t.id)
-                        trashItems(id)
+                        id === 'all' ? trashItems(id, (type = 'undo')) : trashItems(id)
                       }}
                     >
                       Undo

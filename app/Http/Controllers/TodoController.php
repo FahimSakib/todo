@@ -75,7 +75,7 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        if ($id == 'all') {
+        if ($id === 'all') {
             Todo::where('is_trashed', 1)->delete();
         } else {
             $result = Todo::destroy($id);
@@ -106,10 +106,14 @@ class TodoController extends Controller
         }
     }
 
-    public function trashItems($id)
+    public function trashItems($id, $type)
     {
-        if ($id == 'all') {
-            Todo::where('is_complete', 1)->update(['is_trashed' => 1]);
+        if ($id === 'all') {
+            if ($type != 'undo') {
+                Todo::where('is_complete', 1)->update(['is_trashed' => 1]);
+            } elseif ($type === 'undo') {
+                Todo::where([['is_complete', 1], ['is_trashed', 1]])->update(['is_trashed' => 0]);
+            }
         } else {
             $todo = Todo::where('id', $id)->pluck('is_trashed')->first();
             Todo::find($id)->update(['is_trashed' => !$todo]);
