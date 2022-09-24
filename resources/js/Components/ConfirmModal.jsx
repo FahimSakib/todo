@@ -41,7 +41,7 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
                 setShowModal(false)
                 toast((t) => (
                   <span>
-                    Item moved to trash. &nbsp;
+                    {id === 'all' ? "Completed Item's moved to trash " : "Item moved to trash "}
                     <button
                       className="button"
                       onClick={() => {
