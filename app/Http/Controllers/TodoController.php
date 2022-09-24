@@ -76,7 +76,7 @@ class TodoController extends Controller
     public function destroy($id)
     {
         if ($id == 'all') {
-            Todo::where('is_complete', 1)->delete();
+            Todo::where('is_trashed', 1)->delete();
         } else {
             $result = Todo::destroy($id);
             if ($result) {

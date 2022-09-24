@@ -4,8 +4,10 @@ import Close from './Icons/Close'
 
 const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItems }) => {
   const message = () => {
-    if (id === 'all') {
+    if (id === 'all' && type=== 'trash') {
       return <p>Move completed items to Trash? </p>
+    } else if(id === 'all' && type=== 'delete'){
+      return <p>Are you sure you want to empty trash?</p>      
     } else if (type === 'trash') {
       return <p>Move this item to Trash? </p>      
     } else {

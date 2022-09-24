@@ -59,7 +59,7 @@ const TodoList = ({
       ) : (
         <Notodo filter={filter} />
       )}
-      {todosFiltered(filter).length !== 0 && filter!== 'trash' && (
+      {todosFiltered(filter).length !== 0 && filter !== 'trash' && (
         <div className="check-all-container">
           <div>
             {remaining() !== 0 && filter !== 'complete' ? (
@@ -77,11 +77,17 @@ const TodoList = ({
       )}
       <div className="other-buttons-container">
         <FilterButton setFilter={setFilter} todosFiltered={todosFiltered} filter={filter} />
-        {todosFiltered(filter).length !== 0 && (
+        {todosFiltered(filter).filter((todo) => todo.is_complete).length !== 0 && (
           <div>
-            <button onClick={() => handleModal('all','trash')} className="button">
-              Clear completed
-            </button>
+            {filter !== 'trash' ? (
+              <button onClick={() => handleModal('all', 'trash')} className="button">
+                Clear completed
+              </button>
+            ) : (
+              <button onClick={() => handleModal('all', 'delete')} className="button">
+                Empty Trash
+              </button>
+            )}
           </div>
         )}
       </div>

@@ -16,8 +16,13 @@ const Todo = () => {
     Inertia.delete(`todo/${id}`, {
       preserveScroll: true,
       onSuccess: () => {
-        setTodos(todos.filter((todo) => todo.id !== id))
-        toast.success('Todo Successfully deleted')
+        if (id === 'all') {
+          setTodos(todos.filter((todo) => !todo.is_trashed))
+          toast.success('All items has been permanently deleted')
+        } else {
+          setTodos(todos.filter((todo) => todo.id !== id))
+          toast.success('Todo Successfully deleted')
+        }
       },
       onError: (data) => {
         toast.error(data.error)
@@ -119,7 +124,6 @@ const Todo = () => {
       todo.is_complete = false
       return todo
     })
-    console.log(updatedTodos)
     Inertia.put(`todo-check-all/${'uncheck'}`, {}, { preserveScroll: true })
     setTodos(updatedTodos)
   }
