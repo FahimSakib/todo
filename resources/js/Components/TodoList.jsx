@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FilterButton from './FilterButton'
 import Notodo from './NoTodo'
-import Todos from './Todos'
+import TodoItems from './TodoItems'
 import ConfirmModal from '@/Components/ConfirmModal'
 
 const TodoList = ({
@@ -43,7 +43,7 @@ const TodoList = ({
   return (
     <>
       {todosFiltered(filter).length !== 0 ? (
-        <Todos
+        <TodoItems
           todosFiltered={todosFiltered}
           filter={filter}
           completeTodo={completeTodo}
