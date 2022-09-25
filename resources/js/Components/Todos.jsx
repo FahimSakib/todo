@@ -73,7 +73,7 @@ const Todos = ({
                 <div>
                   <button
                     onClick={() => {
-                      restore(todo.id, 'restore')
+                      restore(todo.id)
                     }}
                     className="x-button"
                   >

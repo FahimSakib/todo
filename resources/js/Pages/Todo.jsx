@@ -125,6 +125,7 @@ const Todo = () => {
   }
 
   const trashItems = (id, type = null) => {
+    console.log(type)
     if (id === 'all') {
       Inertia.put(
         `todo-trash/${id}/${type}`,
@@ -134,10 +135,17 @@ const Todo = () => {
         }
       )
       const updatedTodos = todos.map((todo) => {
-        if (todo.is_complete && !todo.is_trashed) {
-          todo.is_trashed = !todo.is_trashed
+        if (type === 'undo') {
+          if (todo.is_complete) {
+            todo.is_trashed = !todo.is_trashed
+          }
+          return todo
+        } else {
+          if (todo.is_complete && !todo.is_trashed) {
+            todo.is_trashed = !todo.is_trashed
+          }
+          return todo
         }
-        return todo
       })
       setTodos(updatedTodos)
     } else {
