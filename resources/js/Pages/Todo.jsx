@@ -1,16 +1,18 @@
 import TodoList from '@/Components/TodoList'
 import Notodo from '@/Components/NoTodo'
 import TodoForm from '@/Components/TodoForm'
-import UseLocalStorage from '@/Hooks/UseLocalStorage'
 import { useState } from 'react'
 import { usePage } from '@inertiajs/inertia-react'
 import { Inertia } from '@inertiajs/inertia'
 import toast from 'react-hot-toast'
+import Name from '@/Components/Name'
 
 const Todo = () => {
-  const { data } = usePage().props
+  const { data, name } = usePage().props
   const [todos, setTodos] = useState(data)
-  const [name, setName] = UseLocalStorage('name', '')
+  const [userName, setUserName] = useState(name)
+  console.log(userName)
+  console.log(todos)
 
   const deleteTodo = (id) => {
     Inertia.delete(`todo/${id}`, {
@@ -128,7 +130,7 @@ const Todo = () => {
     setTodos(updatedTodos)
   }
 
-  const trashItems = (id, type=null) => {
+  const trashItems = (id, type = null) => {
     if (id === 'all') {
       Inertia.put(
         `todo-trash/${id}/${type}`,
@@ -165,19 +167,7 @@ const Todo = () => {
   return (
     <div className="todo-app-container">
       <div className="todo-app">
-        <div className="name-container">
-          <h2>Enter Your Name</h2>
-          <form action="#">
-            <input
-              type="text"
-              className="todo-input"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              placeholder="Enter your name"
-            />
-          </form>
-          {name && <p className="name-label">Hello, {name}</p>}
-        </div>
+        <Name userName={userName} setUserName={setUserName} />
         <h2>Todo App</h2>
         <TodoForm setTodos={setTodos} />
 

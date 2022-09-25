@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Name;
 use App\Models\Todo;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Todo', ['data' => Todo::all()]);
+        return Inertia::render('Todo', ['data' => Todo::all(), 'name' => Name::first()]);
     }
 
     /**
