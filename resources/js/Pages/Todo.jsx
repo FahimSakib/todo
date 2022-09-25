@@ -110,7 +110,7 @@ const Todo = () => {
     setTodos(todos.filter((todo) => !todo.is_complete))
   }
 
-  const checkAll = (type) => {
+  const checkAll = () => {
     const updatedTodos = todos.map((todo) => {
       todo.is_complete = true
       return todo

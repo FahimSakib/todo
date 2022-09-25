@@ -12,7 +12,6 @@ const TodoList = ({
   updateTodo,
   deleteTodo,
   remaining,
-  clearCompleted,
   checkAll,
   unCheckAll,
   trashItems,
