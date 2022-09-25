@@ -138,24 +138,16 @@ const Todo = () => {
         }
       )
       const updatedTodos = todos.map((todo) => {
-        if (type === 'undo') {
-          if (todo.is_complete) {
-            todo.is_trashed = !todo.is_trashed
-          }
-          return todo
-        } else {
-          if (todo.is_complete && !todo.is_trashed) {
-            todo.is_trashed = !todo.is_trashed
-          }
-          return todo
+        if (todo.is_complete && !todo.is_trashed) {
+          todo.is_trashed = !todo.is_trashed
         }
+        return todo
       })
       setTodos(updatedTodos)
     } else {
       const updatedTodos = todos.map((todo) => {
         if (todo.id === id) {
           todo.is_trashed = !todo.is_trashed
-          todo.is_complete = false
         }
         return todo
       })
