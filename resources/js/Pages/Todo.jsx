@@ -140,7 +140,7 @@ const Todo = () => {
         }
       )
       const updatedTodos = todos.map((todo) => {
-        if (todo.is_complete) {
+        if (todo.is_complete && !todo.is_trashed) {
           todo.is_trashed = !todo.is_trashed
         }
         return todo
