@@ -39,14 +39,17 @@ const ConfirmModal = ({ showModal, setShowModal, id, deleteTodo, type, trashItem
               onClick={() => {
                 trashItems(id)
                 setShowModal(false)
+                id === 'all' && toast.remove()
                 toast((t) => (
                   <span>
-                    {id === 'all' ? "Completed Item's moved to trash " : "Item moved to trash "}
+                    {id === 'all' ? "Completed Item's moved to trash " : 'Item moved to trash '}
                     <button
                       className="button"
                       onClick={() => {
                         toast.dismiss(t.id)
-                        id === 'all' ? trashItems(id, (type = 'undo')) : trashItems(id)
+                        id === 'all'
+                          ? trashItems(id, (type = 'undo'))
+                          : trashItems(id, (type = 'undo'))
                       }}
                     >
                       Undo

@@ -21,6 +21,7 @@ const Todo = () => {
           toast.success('All items has been permanently deleted')
         } else {
           setTodos(todos.filter((todo) => todo.id !== id))
+          toast.remove()
           toast.success('Todo Successfully deleted')
         }
       },
@@ -154,6 +155,7 @@ const Todo = () => {
       const updatedTodos = todos.map((todo) => {
         if (todo.id === id) {
           todo.is_trashed = !todo.is_trashed
+          todo.is_complete = false
         }
         return todo
       })

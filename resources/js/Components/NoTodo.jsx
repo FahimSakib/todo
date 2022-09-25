@@ -8,8 +8,10 @@ export default function Notodo({ filter }) {
     }
     if (filter === 'complete') {
       return <p>No completed todo available!</p>
-    } else {
+    } else if(filter === 'trash') {
       return <p>Your trash is empty!</p>
+    }else{
+      return <p>No todo available! Add new...</p>
     }
   }
   return <div className="no-todo-container">{message()}</div>

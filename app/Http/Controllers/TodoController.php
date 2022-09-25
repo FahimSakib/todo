@@ -117,7 +117,7 @@ class TodoController extends Controller
             }
         } else {
             $todo = Todo::where('id', $id)->pluck('is_trashed')->first();
-            Todo::find($id)->update(['is_trashed' => !$todo]);
+            Todo::find($id)->update(['is_trashed' => !$todo, 'is_complete' => 0]);
         }
     }
 }
