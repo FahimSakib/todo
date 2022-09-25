@@ -63,7 +63,7 @@ const Name = ({ userName, setUserName }) => {
       ) : (
         <p className="name-label">
           {!nameEditing ? (
-            <span onDoubleClick={() => setNameEditing(true)}>Hello, {userName.name}</span>
+             <span onDoubleClick={() => setNameEditing(true)}>Hello, <span className='user-name'>{userName.name}</span></span>
           ) : (
             <input
               type="text"
