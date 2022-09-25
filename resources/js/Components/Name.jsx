@@ -19,7 +19,6 @@ const Name = ({ userName, setUserName }) => {
     if (nameInput.name.trim().length !== 0) {
       Inertia.post('name', nameInput, {
         onSuccess: (data) => {
-          console.log(data.props.result)
           setUserName(data.props.result)
           toast.success('Name added successfully')
         },

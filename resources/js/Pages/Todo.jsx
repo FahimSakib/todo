@@ -11,8 +11,6 @@ const Todo = () => {
   const { data, name } = usePage().props
   const [todos, setTodos] = useState(data)
   const [userName, setUserName] = useState(name)
-  console.log(userName)
-  console.log(todos)
 
   const deleteTodo = (id) => {
     Inertia.delete(`todo/${id}`, {
@@ -33,23 +31,23 @@ const Todo = () => {
   }
 
   const completeTodo = (id) => {
-      const updatedTodos = todos.map((todo) => {
-        if (todo.id === id) {
-          todo.is_complete = !todo.is_complete
-        }
-        return todo
-      })
-      Inertia.put(
-        `todo-check/${id}/${'default'}`,
-        {},
-        {
-          preserveScroll: true,
-        }
-      )
-      setTodos(updatedTodos)
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.is_complete = !todo.is_complete
+      }
+      return todo
+    })
+    Inertia.put(
+      `todo-check/${id}/${'default'}`,
+      {},
+      {
+        preserveScroll: true,
+      }
+    )
+    setTodos(updatedTodos)
   }
 
-  const  incompleteOnRestore = (id) => {
+  const incompleteOnRestore = (id) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
         todo.is_complete = false
@@ -107,10 +105,6 @@ const Todo = () => {
   }
 
   const remaining = () => todos.filter((todo) => !todo.is_complete).length
-
-  const clearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.is_complete))
-  }
 
   const checkAll = () => {
     const updatedTodos = todos.map((todo) => {
@@ -180,7 +174,6 @@ const Todo = () => {
             updateTodo={updateTodo}
             deleteTodo={deleteTodo}
             remaining={remaining}
-            clearCompleted={clearCompleted}
             checkAll={checkAll}
             unCheckAll={unCheckAll}
             trashItems={trashItems}
