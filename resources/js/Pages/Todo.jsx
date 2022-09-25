@@ -32,8 +32,7 @@ const Todo = () => {
     })
   }
 
-  const completeTodo = (id, type = null) => {
-    if (type === null) {
+  const completeTodo = (id) => {
       const updatedTodos = todos.map((todo) => {
         if (todo.id === id) {
           todo.is_complete = !todo.is_complete
@@ -48,22 +47,23 @@ const Todo = () => {
         }
       )
       setTodos(updatedTodos)
-    } else if (type === 'restore') {
-      const updatedTodos = todos.map((todo) => {
-        if (todo.id === id) {
-          todo.is_complete = false
-        }
-        return todo
-      })
-      Inertia.put(
-        `todo-check/${id}/${'restore'}`,
-        {},
-        {
-          preserveScroll: true,
-        }
-      )
-      setTodos(updatedTodos)
-    }
+  }
+
+  const  incompleteOnRestore = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.is_complete = false
+      }
+      return todo
+    })
+    Inertia.put(
+      `todo-check/${id}/${'restore'}`,
+      {},
+      {
+        preserveScroll: true,
+      }
+    )
+    setTodos(updatedTodos)
   }
 
   const markAsEditing = (id) => {
@@ -184,6 +184,7 @@ const Todo = () => {
             checkAll={checkAll}
             unCheckAll={unCheckAll}
             trashItems={trashItems}
+            incompleteOnRestore={incompleteOnRestore}
           />
         ) : (
           <Notodo />

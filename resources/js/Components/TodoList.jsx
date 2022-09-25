@@ -15,6 +15,7 @@ const TodoList = ({
   checkAll,
   unCheckAll,
   trashItems,
+  incompleteOnRestore
 }) => {
   const [filter, setFilter] = useState('all')
   const [showModal, setShowModal] = useState(false)
@@ -54,6 +55,7 @@ const TodoList = ({
           setId={setId}
           setType={setType}
           trashItems={trashItems}
+          incompleteOnRestore={incompleteOnRestore}
         />
       ) : (
         <Notodo filter={filter} />

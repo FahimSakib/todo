@@ -13,6 +13,7 @@ const Todos = ({
   setId,
   setType,
   trashItems,
+  incompleteOnRestore
 }) => {
   const handleModal = (id, type) => {
     setShowModal(true)
@@ -20,10 +21,10 @@ const Todos = ({
     setType(type)
   }
 
-  const restore = (id,type) => {
+  const restore = (id) => {
     trashItems(id)
     toast.success('Item restored successfully')
-    completeTodo(id,type)
+    incompleteOnRestore(id)
   }
 
   return (
