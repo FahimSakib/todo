@@ -128,7 +128,6 @@ const Todo = () => {
   }
 
   const trashItems = (id, type = null) => {
-    console.log(type)
     if (id === 'all') {
       Inertia.put(
         `todo-trash/${id}/${type}`,
