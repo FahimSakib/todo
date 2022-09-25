@@ -19,7 +19,8 @@ const Name = ({ userName, setUserName }) => {
     if (nameInput.name.trim().length !== 0) {
       Inertia.post('name', nameInput, {
         onSuccess: (data) => {
-          setUserName(data.props.result)
+            console.log(data.props.name)
+          setUserName(data.props.name)
           toast.success('Name added successfully')
         },
         preserveScroll: true,
@@ -34,6 +35,9 @@ const Name = ({ userName, setUserName }) => {
     if (event.target.value.trim().length === 0) {
       setNameEditing(false)
       return userName.name
+    }else if(event.target.value === userName.name){
+        setNameEditing(false)
+        return userName.name
     }
     userName.name = event.target.value
     const name = event.target.value

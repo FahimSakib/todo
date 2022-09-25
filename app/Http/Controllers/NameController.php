@@ -12,9 +12,7 @@ class NameController extends Controller
     {
         Name::create($request->all());
         $result = name::first();
-        return Inertia::render('Todo', [
-            'result' => $result
-        ]);
+        return redirect()->route('todo.index')->with('result', $result);
     }
 
     public function update(Request $request, $id)

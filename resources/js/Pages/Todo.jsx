@@ -80,6 +80,9 @@ const Todo = () => {
         if (event.target.value.trim().length === 0) {
           todo.is_editing = false
           return todo
+        } else if (event.target.value === todo.title) {
+          todo.is_editing = false
+          return todo
         }
 
         todo.title = event.target.value
