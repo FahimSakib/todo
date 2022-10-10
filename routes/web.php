@@ -39,3 +39,8 @@ Route::put('todo-check/{id}/{type}', [TodoController::class, 'checkItem'])->name
 Route::put('todo-check-all/{type}', [TodoController::class, 'checkAll'])->name('todo.check.all');
 route::put('todo-trash/{id}/{type}', [TodoController::class, 'trashItems'])->name('todo.trash');
 Route::resource('name', NameController::class)->only(['store','update']);
+
+// Test
+Route::get('test', function(){
+    return Inertia::render('test');
+});
